@@ -12,12 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # SDK 10 reads the .slnx solution file (the .NET 8 SDK can't); the 8.0 runtime runs the net8.0 tests
+      # SDK 10 builds the .slnx solution and the net10.0 projects
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-            10.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore
         run: dotnet restore ApartmentSystem.slnx

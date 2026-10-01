@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/denmarthrtn/ApartmentSystem/actions/workflows/ci.yml/badge.svg)](https://github.com/denmarthrtn/ApartmentSystem/actions/workflows/ci.yml)
 
-An ASP.NET Core 8 Web API for a small property manager: apartments, tenants, leases, monthly rent, payments, maintenance requests and reports.
+An ASP.NET Core 10 Web API for a small property manager: apartments, tenants, leases, monthly rent, payments, maintenance requests and reports.
 
 ## Features
 
@@ -17,11 +17,11 @@ An ASP.NET Core 8 Web API for a small property manager: apartments, tenants, lea
 
 ## Tech stack
 
-C# · .NET 8 · ASP.NET Core · Entity Framework Core · SQL Server · ASP.NET Core Identity + JWT · FluentValidation · xUnit · Docker · GitHub Actions
+C# · .NET 10 (LTS) · ASP.NET Core · Entity Framework Core · SQL Server · ASP.NET Core Identity + JWT · FluentValidation · xUnit · Docker · GitHub Actions
 
 ## Getting started
 
-**You need:** the [.NET 8 SDK](https://dotnet.microsoft.com/download) (the `.slnx` solution file needs the .NET 10 SDK), SQL Server LocalDB, and the EF Core tool (`dotnet tool install --global dotnet-ef`).
+**You need:** the [.NET 10 SDK](https://dotnet.microsoft.com/download), SQL Server LocalDB, and the EF Core tool (`dotnet tool install --global dotnet-ef`).
 
 ```bash
 # 1. Secrets are kept in user-secrets, never in appsettings

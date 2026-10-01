@@ -31,3 +31,6 @@ CLAUDE.md
 
 # Local project documents (kept off GitHub)
 docs/
+
+# Visual Studio publish profiles (deploy usernames/URLs)
+**/Properties/PublishProfiles/
