@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ApartmentManagementSystem.Tests/ApartmentManagementSystem.Tests.csproj" Id="fb9b8594-c6bc-4d1f-8f73-0ae9978300ac" />
+  <Project Path="ApartmentManagementSystem/ApartmentManagementSystem.csproj" />
+</Solution>

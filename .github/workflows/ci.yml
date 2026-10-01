@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # SDK 10 reads the .slnx solution file (the .NET 8 SDK can't); the 8.0 runtime runs the net8.0 tests
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Restore
+        run: dotnet restore ApartmentSystem.slnx
+
+      - name: Build
+        run: dotnet build ApartmentSystem.slnx --configuration Release --no-restore
+
+      # Unit and integration tests use the EF InMemory database, so no SQL Server or secrets are needed
+      - name: Test
+        run: dotnet test ApartmentManagementSystem.Tests --configuration Release --no-build --logger "trx;LogFileName=results.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: "**/TestResults/*.trx"
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
+
+      # Makes sure the Dockerfile still builds; the image isn't pushed anywhere yet
+      - name: Build image
+        run: docker build -f ApartmentManagementSystem/Dockerfile -t apartment-api:ci .

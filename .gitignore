@@ -1,0 +1,30 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Test results
+TestResults/
+
+# Local databases
+*.mdf
+*.ldf
+
+# Local secrets / machine-specific settings
+appsettings.*.local.json
+
+# Local AI assistant notes (not part of the project)
+CLAUDE.md
+.claude/
+
+# Docker Compose secrets (see .env.example)
+.env
+
+# Office lock files
+~$*
