@@ -99,6 +99,22 @@ namespace ApartmentManagementSystem.Tests.Integration
         }
 
         [Fact]
+        public async Task Login_ShouldReturn429_AfterTenAttemptsInAMinute()
+        {
+            var client = _factory.CreateClient();
+            var statuses = new List<HttpStatusCode>();
+            for (var i = 0; i < 11; i++)
+            {
+                var response = await client.PostAsJsonAsync("/api/auth/login",
+                    new { email = "nobody@example.com", password = "wrong-password" });
+                statuses.Add(response.StatusCode);
+            }
+
+            Assert.All(statuses.Take(10), s => Assert.Equal(HttpStatusCode.Unauthorized, s));
+            Assert.Equal(HttpStatusCode.TooManyRequests, statuses[10]);
+        }
+
+        [Fact]
         public async Task RefreshToken_ShouldWorkOnce_AndBeRejectedWhenReused()
         {
             var client = _factory.CreateClient();
