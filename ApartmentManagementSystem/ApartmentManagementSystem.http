@@ -1,6 +1,6 @@
 @ApartmentManagementSystem_HostAddress = http://localhost:5041
 
-GET {{ApartmentManagementSystem_HostAddress}}/weatherforecast/
+GET {{ApartmentManagementSystem_HostAddress}}/health
 Accept: application/json
 
 ###

@@ -42,6 +42,43 @@ namespace ApartmentManagementSystem.Tests.Integration
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
+        // --- Apartments ---
+
+        [Fact]
+        public async Task Admin_CreatesAndUpdatesApartment_ThroughDtos()
+        {
+            var admin = await AdminAsync();
+
+            var createResponse = await admin.PostAsJsonAsync("/api/apartments", new
+            {
+                name = "Unit 9A", location = "Makati", address = "9 Ayala Ave", rent = 18000m, rooms = 2, hasParking = true
+            });
+            Assert.Equal(HttpStatusCode.Created, createResponse.StatusCode);
+            var created = await createResponse.Content.ReadFromJsonAsync<ApartmentDetailDto>();
+            Assert.Equal("Unit 9A", created!.Name);
+
+            var updateResponse = await admin.PutAsJsonAsync($"/api/apartments/{created.Id}", new
+            {
+                id = created.Id, name = "Unit 9A", location = "Makati", address = "9 Ayala Ave", rent = 19500m, rooms = 2, hasParking = false
+            });
+            Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
+
+            // The public detail endpoint returns the updated values
+            var fetched = await _factory.CreateClient().GetFromJsonAsync<ApartmentDetailDto>($"/api/apartments/{created.Id}");
+            Assert.Equal(19500m, fetched!.Rent);
+            Assert.False(fetched.HasParking);
+        }
+
+        [Fact]
+        public async Task CreateApartment_WithMissingFields_ShouldReturn400()
+        {
+            var admin = await AdminAsync();
+
+            var response = await admin.PostAsJsonAsync("/api/apartments", new { rent = 0, rooms = 0 });
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
         // --- Authentication ---
 
         [Fact]

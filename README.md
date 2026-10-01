@@ -79,7 +79,7 @@ Full request and response details are in Swagger.
 dotnet test ApartmentManagementSystem.Tests
 ```
 
-There are 104 tests. The unit tests run the services against the EF Core in-memory database. The integration tests start the whole API and call the real endpoints with real tokens. CI runs all of them on every push and pull request to `main`.
+There are 106 tests. The unit tests run the services against the EF Core in-memory database. The integration tests start the whole API and call the real endpoints with real tokens. CI runs all of them on every push and pull request to `main`.
 
 ## Project structure
 

@@ -8,10 +8,23 @@ namespace ApartmentManagementSystem.Validators
     // Shape checks only (required, length, range, format). Rules that need the database,
     // like "apartment already has an active lease", stay in the services.
 
-    public class ApartmentValidator : AbstractValidator<Apartment>
+    public class ApartmentCreateValidator : AbstractValidator<ApartmentCreateDto>
     {
-        public ApartmentValidator()
+        public ApartmentCreateValidator()
         {
+            RuleFor(a => a.Name).NotEmpty().MaximumLength(100);
+            RuleFor(a => a.Location).NotEmpty().MaximumLength(100);
+            RuleFor(a => a.Address).NotEmpty().MaximumLength(200);
+            RuleFor(a => a.Rent).GreaterThan(0);
+            RuleFor(a => a.Rooms).InclusiveBetween(1, 20);
+        }
+    }
+
+    public class ApartmentUpdateValidator : AbstractValidator<ApartmentUpdateDto>
+    {
+        public ApartmentUpdateValidator()
+        {
+            RuleFor(a => a.Id).GreaterThan(0);
             RuleFor(a => a.Name).NotEmpty().MaximumLength(100);
             RuleFor(a => a.Location).NotEmpty().MaximumLength(100);
             RuleFor(a => a.Address).NotEmpty().MaximumLength(200);

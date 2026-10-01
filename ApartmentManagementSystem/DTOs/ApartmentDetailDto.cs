@@ -9,8 +9,5 @@
         public decimal Rent { get; set; }
         public int Rooms { get; set; }
         public bool HasParking { get; set; }
-
-        // Tenants inside this apartment
-        public List<TenantListDto> Tenants { get; set; } = new();
     }
 }

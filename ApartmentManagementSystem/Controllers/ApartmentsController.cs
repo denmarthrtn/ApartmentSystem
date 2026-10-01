@@ -24,7 +24,7 @@ namespace ApartmentManagementSystem.Controllers
         public async Task<IActionResult> GetAll([FromQuery] PaginationQuery pagination)
         {
             var apartments = await _service.GetAllAsync(pagination);
-            return Ok(apartments);
+            return Ok(apartments.Map(ToListDto));
         }
 
         // GET: api/apartments/available?page=1&pageSize=10
@@ -33,7 +33,7 @@ namespace ApartmentManagementSystem.Controllers
         public async Task<IActionResult> GetAvailable([FromQuery] PaginationQuery pagination)
         {
             var apartments = await _service.GetAvailableAsync(pagination);
-            return Ok(apartments);
+            return Ok(apartments.Map(ToListDto));
         }
 
         // GET: api/apartments/5
@@ -43,26 +43,48 @@ namespace ApartmentManagementSystem.Controllers
         {
             var apartment = await _service.GetByIdAsync(id);
             if (apartment == null) return NotFound();
-            return Ok(apartment);
+            return Ok(ToDetailDto(apartment));
         }
 
         // POST: api/apartments
         [HttpPost]
-        public async Task<IActionResult> Create(Apartment apartment)
+        public async Task<IActionResult> Create(ApartmentCreateDto dto)
         {
+            var apartment = new Apartment
+            {
+                Name = dto.Name,
+                Location = dto.Location,
+                Address = dto.Address,
+                Rent = dto.Rent,
+                Rooms = dto.Rooms,
+                HasParking = dto.HasParking
+            };
+
             var created = await _service.CreateAsync(apartment);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var result = ToDetailDto(created);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
         // PUT: api/apartments/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Apartment apartment)
+        public async Task<IActionResult> Update(int id, ApartmentUpdateDto dto)
         {
-            if (id != apartment.Id) return BadRequest();
+            if (id != dto.Id) return BadRequest();
+
+            var apartment = await _service.GetByIdAsync(id);
+            if (apartment == null) return NotFound();
+
+            apartment.Name = dto.Name;
+            apartment.Location = dto.Location;
+            apartment.Address = dto.Address;
+            apartment.Rent = dto.Rent;
+            apartment.Rooms = dto.Rooms;
+            apartment.HasParking = dto.HasParking;
 
             var success = await _service.UpdateAsync(apartment);
             if (!success) return NotFound();
-            return NoContent();
+
+            return Ok(ToDetailDto(apartment));
         }
 
         // DELETE: api/apartments/5
@@ -74,5 +96,28 @@ namespace ApartmentManagementSystem.Controllers
 
             return NoContent();
         }
+
+        // Manual mapping: Apartment -> ApartmentListDto
+        private static ApartmentListDto ToListDto(Apartment a) => new ApartmentListDto
+        {
+            Id = a.Id,
+            Name = a.Name,
+            Location = a.Location,
+            Rent = a.Rent,
+            Rooms = a.Rooms,
+            HasParking = a.HasParking
+        };
+
+        // Manual mapping: Apartment -> ApartmentDetailDto
+        private static ApartmentDetailDto ToDetailDto(Apartment a) => new ApartmentDetailDto
+        {
+            Id = a.Id,
+            Name = a.Name,
+            Location = a.Location,
+            Address = a.Address,
+            Rent = a.Rent,
+            Rooms = a.Rooms,
+            HasParking = a.HasParking
+        };
     }
 }
