@@ -34,3 +34,6 @@ docs/
 
 # Visual Studio publish profiles (deploy usernames/URLs)
 **/Properties/PublishProfiles/
+
+publish/
+publish.zip
