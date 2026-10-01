@@ -96,9 +96,4 @@ ApartmentManagementSystem/
   Migrations/     EF Core migrations
 ApartmentManagementSystem.Tests/
   Integration/    end-to-end API tests
-docs/             project plan
 ```
-
-## Project plan
-
-The project was built in phases. The plan, with notes on each phase and the design decisions, is in [docs/Project-Plan-latest.docx](docs/Project-Plan-latest.docx).
