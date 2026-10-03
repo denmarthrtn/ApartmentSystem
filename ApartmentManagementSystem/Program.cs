@@ -69,7 +69,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 // Auth endpoints: 10 requests per minute per client IP, then 429
-// ponytail: counters are in memory per instance; move to a shared store if you run several instances
+// Note: counters are in memory per instance; move to a shared store if you run several instances
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
