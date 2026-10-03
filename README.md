@@ -4,6 +4,10 @@
 
 An ASP.NET Core 10 Web API for a small property manager: apartments, tenants, leases, monthly rent, payments, maintenance requests and reports.
 
+**Live demo:** [Swagger UI](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/swagger) · [vacant apartments (public endpoint)](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/api/apartments/available) · [health check](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/health)
+
+The first request can take a few seconds while the app wakes up.
+
 ## Features
 
 - **Apartments and tenants.** Create, update and delete them. The list of vacant apartments is public.
