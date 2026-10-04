@@ -4,9 +4,9 @@
 
 An ASP.NET Core 10 Web API for a small property manager: apartments, tenants, leases, monthly rent, payments, maintenance requests and reports.
 
-**Live demo:** [Swagger UI](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/swagger) · [vacant apartments (public endpoint)](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/api/apartments/available) · [health check](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/health)
+**Live demo:** [the website](https://yellow-pond-033850b00.5.azurestaticapps.net) ([its code](https://github.com/denmarthrtn/ApartmentTenantSystemFrontend)) · [Swagger UI](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/swagger) · [vacant apartments (public endpoint)](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/api/apartments/available) · [health check](https://apartment-den-fec9b9dre5dadsg9.eastasia-01.azurewebsites.net/health)
 
-The first request can take a few seconds while the app wakes up.
+You can sign in on the website with the [demo accounts](#demo-accounts) below. The first request can take a minute or more while the app wakes up, because it runs on Azure's free tier.
 
 ## Features
 
@@ -53,7 +53,7 @@ This starts SQL Server and the API. Swagger is at http://localhost:8080/swagger 
 
 ### Demo accounts
 
-The demo accounts are only created when demo mode is on, which it is in Development and in Docker Compose. Their passwords are public, so never turn demo mode on in a real deployment.
+The demo accounts are only created when demo mode is on, which it is in Development and in Docker Compose. It is also on in the live demo, which only holds sample data. Their passwords are public, so never turn demo mode on in a deployment with real data.
 
 | Role   | Email                         | Password         |
 |--------|-------------------------------|------------------|
