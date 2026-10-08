@@ -100,7 +100,8 @@ namespace ApartmentManagementSystem.Services
                 throw new ArgumentException("Payment amount must be greater than zero");
             if (payment.Amount > charge.Balance)
                 throw new ArgumentException($"Payment of {payment.Amount} exceeds the remaining balance of {charge.Balance}");
-            if (payment.PaidDate.Date > _timeProvider.GetLocalNow().Date)
+            // Users can be in any time zone, so allow up to the latest "today" in the world (UTC+14)
+            if (payment.PaidDate.Date > _timeProvider.GetUtcNow().UtcDateTime.AddHours(14).Date)
                 throw new ArgumentException("Paid date cannot be in the future");
 
             payment.RentChargeId = charge.Id;
